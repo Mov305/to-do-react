@@ -1,51 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskInput from '../Components/ToDo/input';
 import Task from '../Components/ToDo/Task';
 import { v4 } from 'uuid';
 
-class ToDo extends React.Component {
-  state = {
-    tasks: localStorage.getItem('tasks') ? [...JSON.parse(localStorage.getItem('tasks'))] : [],
-  };
-  hanldeStorage = (tasks = this.state.tasks) => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+const ToDo = () => {
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    const data = localStorage.getItem('tasks');
+    if (data) {
+      setTasks(JSON.parse(data));
+    }
+  }, []);
+
+  const hanldeStorage = (data = tasks) => {
+    localStorage.setItem('tasks', JSON.stringify(data));
   };
 
-  handleUpdate = (id, updateTitle) => {
-    const updatedTasks = this.state.tasks.map((task) => {
+  const handleUpdate = (id, updateTitle) => {
+    const updatedTasks = tasks.map((task) => {
       if (task.id === id) {
         return { ...task, title: updateTitle };
       }
       return task;
     });
-    this.setState({
-      tasks: updatedTasks,
-    });
-    this.hanldeStorage(updatedTasks);
+    setTasks(updatedTasks);
+    hanldeStorage(updatedTasks);
   };
 
-  hanldeAddTask = (title) => {
-    this.setState({
-      tasks: [
-        ...this.state.tasks,
-        {
-          id: v4(),
-          title,
-          completed: false,
-        },
-      ],
-    });
-    this.hanldeStorage();
+  const hanldeAddTask = (title) => {
+    setTasks([
+      ...tasks,
+      {
+        id: v4(),
+        title,
+        completed: false,
+      },
+    ]);
+    hanldeStorage();
   };
 
-  render() {
-    return (
-      <section className="rounded-xl p-5 border border-gray-700 shadow-sm flex flex-col">
-        <TaskInput hanldeAddTask={this.hanldeAddTask} />
-        <ul>{this.state.tasks && this.state.tasks.map((task) => <Task key={task.id} task={task} handleUpdate={this.handleUpdate} />)}</ul>
-      </section>
-    );
-  }
-}
+  const hanldeDelete = (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    hanldeStorage(updatedTasks);
+  };
+
+  return (
+    <section className="rounded-xl p-5 border border-gray-700 shadow-sm flex flex-col">
+      <TaskInput hanldeAddTask={hanldeAddTask} />
+      <ul>{tasks && tasks.map((task) => <Task key={task.id} task={task} handleUpdate={handleUpdate} hanldeDelete={hanldeDelete} />)}</ul>
+    </section>
+  );
+};
 
 export default ToDo;

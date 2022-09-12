@@ -1,37 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {FcDeleteColumn} from 'react-icons/fc';
 
-class Task extends React.Component {
-  state = {
-    editing: false,
-  };
-  handleEdit = () => {
-    this.setState({
-      editing: true,
-    });
+const Task = ({ task: { completed, title, id }, handleUpdate,hanldeDelete }) => {
+  const [edit, setEdit] = useState(false);
+  const handleEdit = () => {
+    setEdit(true);
   };
 
-  handleUpdatedDone = (e) => {
+  const handleUpdatedDone = (e) => {
     if (e.key === 'Enter') {
-      this.setState({ editing: false });
+      setEdit(false);
     }
   };
-  render() {
-    const {
-      task: { completed, title, id },
-      handleUpdate,
-    } = this.props;
-    return (
-      <li>
-        {(this.state.editing === false && this.props.task.title)  ? ( 
-          <div onDoubleClick={this.handleEdit} className="textInput">
-            {title}
-          </div>
-        ) : (
-          <input type="text" className="textInput" value={title} onChange={(e) => handleUpdate(id, e.target.value)} onKeyDown={(e)=>this.handleUpdatedDone(e)} />
-        )}
-      </li>
-    );
-  }
-}
+
+  return (
+    <li className='flex'>
+      <FcDeleteColumn className='text-2xl mt-3 grayscale-[0.5] hover:grayscale-0' onClick={()=>hanldeDelete(id)}/>
+
+      {edit === false && title ? (
+        <div onDoubleClick={handleEdit} className="textInput">
+          {title}
+        </div>
+      ) : (
+        <input type="text" className="textInput" value={title} onChange={(e) => handleUpdate(id, e.target.value)} onKeyDown={(e) => handleUpdatedDone(e)} />
+      )}
+    </li>
+  );
+};
 
 export default Task;
