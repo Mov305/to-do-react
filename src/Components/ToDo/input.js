@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Submit from '../../assets/svg/submit.svg';
 
-class TaskInput extends React.Component {
-  state = {
-    title: '',
+const TaskInput = ({ hanldeAddTask }) => {
+  const [title, setTitle] = useState('');
+  const hanldeSubmit = () => {
+    if (title.trim() !== '') {
+      hanldeAddTask(title);
+      setTitle('');
+    }
   };
-  hanldeSubmit = () => {
-    this.props.hanldeAddTask(this.state.title);
-    this.setState({
-      title: '',
-    });
+
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      hanldeSubmit();
+    }
   };
-  render() {
-    return (
-      <div className="flex w-full justify-between">
-        <input type="text" className=" outline-none" value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} placeholder="Input a task" />
-        <button className="w-8 h-8" onClick={this.hanldeSubmit}>
-          <img className="w-full h-full" src={Submit} alt="Submit" />
-        </button>
-      </div>
-    );
-  }
-}
+
+  return (
+    <div className="flex w-full justify-between">
+      <input type="text" className=" outline-none" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Input a task" onKeyDown={handleEnter} />
+      <button className="w-8 h-8" onClick={hanldeSubmit}>
+        <img className="w-full h-full" src={Submit} alt="Submit" />
+      </button>
+    </div>
+  );
+};
 
 export default TaskInput;

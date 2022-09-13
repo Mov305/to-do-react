@@ -1,10 +1,27 @@
-# Getting Started with Create React App
+# To-do React
+ 
+ Have your own Todo app verson on your local machine. Responsive on all screens. Built to suit your needs.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ ## Live Demo
 
-## Available Scripts
+[Click me](https://Mov305.github.io/to-do-react)
 
-In the project directory, you can run:
+
+## Built With
+```
+GitHub
+GitHub Flow
+Visual Studio Code
+HTML
+CSS
+Javascript
+Webpack
+React
+```
+
+## Getting Started
+
+In the Math Magicians directory, you can run:
 
 ### `npm start`
 
@@ -68,3 +85,29 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Author
+
+#### Abdelrhman
+GitHub:[@Mov305](https://github.com/Mov305)
+<br>
+Linkedin: [Abdelrhman samy](https://www.linkedin.com/in/abdelrhman-samy-80b14b215/)
+
+## Contributing
+
+Contributions, issues, and reviews are very welcome! 
+
+## Support
+
+Please rate this project.
+
+## Acknowledgements
+
+Microverse Community
+GitHub Repositories
+Inspiration
+
+## 📝 License
+
+This project is [MIT](https://github.com/Mov305/To-do-list/blob/master/MIT.md) licensed.
